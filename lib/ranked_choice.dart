@@ -1,13 +1,10 @@
-import "package:test/test.dart";
-import "package:format/format.dart";
-
 class PrefPos {
   final int voterIdx;
   int voteIdx;
   PrefPos(this.voterIdx, this.voteIdx);
   @override
   String toString() {
-    return "Voter {} Vote {}".format(voterIdx, voteIdx);
+    return "Voter $voterIdx Vote $voteIdx";
   }
 }
 
@@ -91,51 +88,4 @@ List<Set<T>> rankedChoiceOrder<T>(final List<List<T>> votes) {
   }
 
   return elims.reversed.toList();
-}
-
-void main() {
-  test('RCO singleton', () {
-    expect(
-        rankedChoiceOrder<int>([
-          [3],
-          [3],
-          [3]
-        ]),
-        equals([
-          {3}
-        ]));
-  });
-  test('RCO single-voter', () {
-    expect(
-        rankedChoiceOrder<int>([
-          [1, 2, 3]
-        ]),
-        equals([
-          [1],
-          [2, 3]
-        ]));
-  });
-  test('RCO symmetry', () {
-    expect(
-        rankedChoiceOrder<int>([
-          [1, 2, 3],
-          [3, 2, 1]
-        ]),
-        equals([
-          [1, 3],
-          [2]
-        ]));
-  });
-  // from https://github.com/AnnikaCodes/betterpoll/blob/main/backend/src/poll.rs test
-  test('annika1', () {
-    expect(
-        rankedChoiceOrder<String>([
-          ["c", "a", "b"],
-          ["a", "c", "b"],
-          ["b", "c"]
-        ]),
-        equals([
-          ["c", "a", "b"]
-        ]));
-  });
 }
